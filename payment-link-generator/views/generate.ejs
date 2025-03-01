@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Payment Link - Novus</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-orange: #FF6A00;
+      --secondary-orange: #EE0979;
+      --white: #fff;
+      --bg-blue: #74ABE2;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-blue);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Common header with centered brand and home button */
+    .common-header {
+      background: var(--white);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom-left-radius: 50% 20px;
+      border-bottom-right-radius: 50% 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .common-header .brand {
+      text-align: center;
+    }
+    .common-header .brand h1 {
+      font-size: 2.5em;
+      color: var(--primary-orange);
+      margin: 0;
+    }
+    .common-header .brand p {
+      font-size: 1.1em;
+      color: #555;
+      margin: 0;
+    }
+    .common-header .home-btn {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: linear-gradient(45deg, var(--primary-orange), var(--secondary-orange));
+      color: var(--white);
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .common-header .home-btn:hover {
+      transform: translateY(-50%) scale(1.05);
+    }
+    /* Main container */
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: var(--white);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h2 {
+      color: var(--primary-orange);
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, var(--primary-orange), var(--secondary-orange));
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <div class="common-header">
+    <div class="brand">
+      <h1>Novus</h1>
+      <p>Empowering local entrepreneurs with finance solutions</p>
+    </div>
+    <a class="home-btn" href="/dashboard">Go to Home</a>
+  </div>
+  <div class="container">
+    <h2>Generate Payment Link</h2>
+    <form action="/generate/generate-link" method="post">
+      <label>Product/Service Name:</label>
+      <input type="text" name="productName" required>
+      <label>Description:</label>
+      <textarea name="description" rows="4" required></textarea>
+      <label>Price (in RWF):</label>
+      <input type="text" name="price" required>
+      <!-- Currency is fixed as RWF -->
+      <input type="hidden" name="currency" value="RWF">
+      <label>Main Brand Color (Hex code, e.g., #FF6A00):</label>
+      <input type="text" name="mainBrandColor" value="<%= user.mainBrandColor || '' %>" required>
+      <button type="submit">Generate Link</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - <%= email %></title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #4A90E2;
+      --secondary-blue: #145DA0;
+      --primary-orange: #FF6A00;
+      --secondary-orange: #EE0979;
+      --white: #fff;
+      --text-dark: #333;
+      --balance-bg: #4CAF50;
+      --products-bg: #2196F3;
+      --transactions-bg: #FF9800;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-dark);
+    }
+    .top-nav {
+      width: 100%;
+      background: var(--white);
+      border-bottom-left-radius: 50% 20px;
+      border-bottom-right-radius: 50% 20px;
+      text-align: center;
+      padding: 20px 0;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .top-nav h1 { font-size: 2.5em; color: var(--primary-orange); margin-bottom: 5px; }
+    .top-nav p { font-size: 1.2em; color: #555; margin-bottom: 0; }
+    .top-right-actions {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .top-right-actions a {
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--primary-orange), var(--secondary-orange));
+      color: var(--white);
+      transition: transform 0.2s ease;
+    }
+    .top-right-actions a:hover { transform: scale(1.05); }
+    .dashboard-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .dashboard-card {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .dashboard-header h2 { font-size: 2em; color: var(--primary-orange); margin-bottom: 10px; }
+    .dashboard-header p { font-size: 1.1em; color: #777; margin-bottom: 20px; }
+    .balance-box {
+      display: block;
+      text-decoration: none;
+      color: var(--white);
+      background: linear-gradient(45deg, var(--balance-bg), #388E3C);
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 2em;
+      width: 250px;
+      margin: 20px auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease;
+    }
+    .balance-box:hover { transform: scale(1.05); }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .stat {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+      color: var(--white);
+    }
+    .stat:hover { transform: scale(1.1); }
+    .stat.product-links { background: var(--products-bg); }
+    .stat.transactions { background: var(--transactions-bg); }
+    .stat h3 { font-size: 1.8em; margin: 0; }
+    .stat p { font-size: 1em; margin-top: 5px; }
+    .dashboard-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .dashboard-actions a, .dashboard-actions button {
+      padding: 12px 24px;
+      background: linear-gradient(45deg, var(--primary-orange), var(--secondary-orange));
+      border: none;
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 1em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .dashboard-actions a:hover, .dashboard-actions button:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <h1>Novus</h1>
+    <p>Empowering local entrepreneurs with finance solutions</p>
+    <div class="top-right-actions">
+      <a href="/dashboard/edit-profile">Edit Profile</a>
+      <a href="/logout">Log Out</a>
+    </div>
+  </div>
+  <div class="dashboard-wrapper">
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <h2>Hi <%= user.name %>, Welcome to your Dashboard</h2>
+        <p>Click on any stat to view details.</p>
+      </div>
+      <a href="/balance" class="balance-box">
+        Balance: <%= wallet %> RWF
+      </a>
+      <div class="stats">
+        <div class="stat product-links" onclick="window.location.href='/products'">
+          <h3><%= products %></h3>
+          <p>Product Links</p>
+        </div>
+        <div class="stat transactions" onclick="window.location.href='/sales'">
+          <h3><%= sales.length %></h3>
+          <p>Transactions</p>
+        </div>
+      </div>
+      <div class="dashboard-actions">
+        <a href="/generate">Generate Link</a>
+        <a href="/withdraw">Withdraw Funds</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
